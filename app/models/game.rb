@@ -59,6 +59,9 @@ class Game
   def won?
     @win
   end
+  def lost?
+    @lose
+  end
 
   def game_over
 

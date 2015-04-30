@@ -63,6 +63,43 @@ describe 'Game' do
     end
   end
 
+  # describe "#return_value" do
+  #   before do
+  #     @all_mines_board = newBoard(@size) {true}
+  #     @no_mines_board = newBoard(@size) {false}
+  #   end
+  #   it "should count the total number of mines on the board" do
+  #     expect(Game.new(@size,@no_mines_board).total_mines).to eq(0)
+  #     expect(Game.new(@size,@all_mines_board).total_mines).to eq(@size * @size)
+  #   end
+  # end
 
+  describe "#check_for_win" do
+
+    before do
+      @all_mines_board = newBoard(@size) {true}
+      @no_mines_board = newBoard(@size) {false}
+      @no_mines_game = Game.new(@size,@no_mines_board)
+      @all_mines_game = Game.new(@size,@all_mines_board)
+
+    end
+
+    it "should return false when the player hasn't won yet " do
+      expect(@no_mines_game.check_for_win).to eq(false)
+    end
+
+    it "should return true when the player has won " do
+      @size.times {|r| @size.times{|c| @no_mines_game.return_value(r,c)} }
+      expect(@no_mines_game.check_for_win).to eq(true)
+      expect(@no_mines_game.lost?).to eq(false)
+    end
+
+    it "should set the lost condition when checking a mine " do
+      @all_mines_game.return_value(0,0)
+      expect(@all_mines_game.check_for_win).to eq(false)
+      expect(@all_mines_game.lost?).to eq(true)
+    end
+
+  end
 
 end
