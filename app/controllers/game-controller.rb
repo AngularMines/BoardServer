@@ -5,7 +5,7 @@ get '/newGame' do
 end
 
 
-get '/check'
+get '/check' do
 
 
 
