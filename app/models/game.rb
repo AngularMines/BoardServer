@@ -18,9 +18,9 @@ class Game
 
   def count_neighbour_mines(r,c)
     @board[r][c].neighbour_mines = 0
-    unless mine?(r,c)
-      @directions.each {|i,j| @board[r][c].neighbour_mines += 1 if mine?(r+i,c+j) && in_bounds?(r+i,c+j) }
-    end
+
+    @directions.each {|i,j| @board[r][c].neighbour_mines += 1 if mine?(r+i,c+j) && in_bounds?(r+i,c+j) }
+
     @board[r][c].neighbour_mines
   end
 

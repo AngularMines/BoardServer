@@ -47,6 +47,22 @@ describe 'Game' do
 
   end
 
+  describe "#count_neighbour_mines" do
+
+    before do
+      @all_mines_board = newBoard(@size) {true}
+      @no_mines_board = newBoard(@size) {false}
+
+    end
+
+    it "should count the number of neighbouring mines" do
+      expect(Game.new(@size,@all_mines_board).count_neighbour_mines(0,0)).to eq(3)
+    end
+
+
+
+  end
+
 
 
 
