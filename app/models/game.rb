@@ -6,7 +6,7 @@ class Game
     @size = size
     @board = Array.new(size) { Array.new(size) {Cell.new}}
     @directions = [[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1]]
-    total_mines
+    # total_mines
     @lose = false
     @start_time = Time.now
     @win = false
@@ -17,12 +17,15 @@ class Game
   end
 
   def count_neighbour_mines(r,c)
-    unless @board[r][c].mine
-      @directions.each {|i,j| @board[r][c].neighbour_mines += 1 if @board[r + i][c + j].mine? && in_bounds?(r+i,c+j) }
+    @board[r][c].neighbour_mines = 0
+    unless mine?(r,c)
+      @directions.each {|i,j| @board[r][c].neighbour_mines += 1 if mine?(r+i,c+j) && in_bounds?(r+i,c+j) }
     end
+    @board[r][c].neighbour_mines
   end
 
   def mine?(r,c)
+    puts r, c
     @board[r][c].mine
   end
 
@@ -34,8 +37,18 @@ class Game
     if mine?(r,c)
       @lose = true
     else
-      @board[r][c].neighbour_mines
+      @board[r][c].known = true
+      if check_for_win
+        game_over
+      else
+        @board[r][c].neighbour_mines
+      end
     end
+  end
+
+  def check_for_win
+    @board.each_with_index {|row, r| row.each_with_index {|col, c| @win = true if mine?(r,c) || @board[r][c].known }}
+    won?
   end
 
   def finish_time
@@ -44,6 +57,10 @@ class Game
 
   def won?
     @win
+  end
+
+  def game_over
+
   end
 
 end
