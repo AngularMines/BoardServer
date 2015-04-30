@@ -2,9 +2,9 @@ class Game
 
   attr_reader :size, :board
 
-  def initialize(size=10)
+  def initialize(size=10, board = Array.new(size) { Array.new(size) {Cell.new}} )
     @size = size
-    @board = Array.new(size) { Array.new(size) {Cell.new}}
+    @board = board
     @directions = [[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1]]
     # total_mines
     @lose = false
@@ -25,7 +25,6 @@ class Game
   end
 
   def mine?(r,c)
-    puts r, c
     @board[r][c].mine
   end
 
