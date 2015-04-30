@@ -13,8 +13,10 @@ class Game
   end
 
   def total_mines
-    @board.each_with_index {|row, r| row.each_with_index {|col, c| count_neighbour_mines(r,c) }}
-  end
+    count = 0
+    @board.each{|row| count += row.count{|cell| cell.mine}}
+    count
+ end
 
   def count_neighbour_mines(r,c)
     @board[r][c].neighbour_mines = 0
