@@ -1,8 +1,8 @@
 
 
 class Board
-  def initialize
-    @board = [
+
+  BOARD = [
     [0,1,-1,1,0,0,0,0,0],
     [0,1,1,1,0,0,0,0,0],
     [1,1,1,0,1,1,1,0,0],
@@ -12,14 +12,13 @@ class Board
     [1,1,1,0,1,1,1,1,1],
     [1,-1,2,1,0,1,1,1,0],
     [1,2,-1,1,0,1,-1,1,0],
-    ]
-  end
+  ]
 
-  def num_mines
-    10
-  end
+
+  NUM_MINES = 10
+  NUM_EMPTY = 71
 
   def self.number_at_guess(r,c)
-    @board[r][c]
+    self.BOARD[r][c]
   end
 end
