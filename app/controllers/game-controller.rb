@@ -1,10 +1,18 @@
-before do
-   content_type :json
-   headers 'Access-Control-Allow-Origin' => '*',
-           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
-end
+# before do
+#    content_type :json
+#    headers 'Access-Control-Allow-Origin' => '*',
+#            'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
+# end
 
-set :protection, false # added this and the above stuff
+# set :protection, false # added this and the above stuff
+
+before do
+  if request.request_method == 'OPTIONS'
+  response.headers["Access-Control-Allow-Origin"] ="*"
+  response.headers["Access-Control-Allow-Methods"] ="POST"
+  halt 200
+end
+end
 
 get '/new_game' do
   Game.delete_all
@@ -14,7 +22,9 @@ end
 
 
 post '/check' do
-  parsed_request = JSON.parse(request.body.read)
+  response.headers["Access-Control-Allow-Origin"] ="*"
+  response.headers["Access-Control-Allow-Methods"] ="POST"
+  parsed_request = params
   r = parsed_request['coords']['row'].to_i
   c = parsed_request['coords']['column'].to_i
 
