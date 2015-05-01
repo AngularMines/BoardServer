@@ -71,6 +71,10 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (~> 1.3)
+    sinatra-cross_origin (0.3.2)
+    sinatra-json (0.1.0)
+      multi_json (~> 1.0)
+      sinatra (~> 1.0)
     thread_safe (0.3.5)
     tilt (1.4.1)
     tzinfo (1.2.2)
@@ -87,6 +91,7 @@ DEPENDENCIES
   capybara
   factory_girl
   faker
+  json
   pg
   rack (= 1.5.2)
   rack-test
@@ -96,3 +101,5 @@ DEPENDENCIES
   shoulda-matchers
   sinatra
   sinatra-contrib
+  sinatra-cross_origin (~> 0.3.1)
+  sinatra-json

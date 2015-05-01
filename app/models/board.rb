@@ -19,6 +19,6 @@ class Board
   NUM_EMPTY = 71
 
   def self.number_at_guess(r,c)
-    self.BOARD[r][c]
+    BOARD[r][c]
   end
 end

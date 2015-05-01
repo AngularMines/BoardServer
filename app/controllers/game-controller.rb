@@ -1,3 +1,11 @@
+before do
+   content_type :json
+   headers 'Access-Control-Allow-Origin' => '*',
+           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
+end
+
+set :protection, false # added this and the above stuff
+
 get '/new_game' do
   Game.delete_all
   Game.create(click_count: 0)
@@ -6,8 +14,9 @@ end
 
 
 post '/check' do
-  r = params[:coords[:row]]
-  c = params[:coords[:column]]
+  parsed_request = JSON.parse(request.body.read)
+  r = parsed_request['coords']['row'].to_i
+  c = parsed_request['coords']['column'].to_i
 
   game = Game.all.first
 
@@ -15,7 +24,7 @@ post '/check' do
 
   if(num == -1)
     #send game over
-    return -1
+    return "-1"
   else
     game.click_count += 1
     game.save
@@ -25,10 +34,10 @@ post '/check' do
   if game.click_count == (Board::NUM_EMPTY)
     # work out game time and post to server
     #send game has won
-    9
+    "9"
   else
     #return the number at that location
-    num
+    num.to_s
   end
 
 end
