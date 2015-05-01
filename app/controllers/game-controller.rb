@@ -15,6 +15,8 @@ end
 end
 
 get '/new_game' do
+  response.headers["Access-Control-Allow-Origin"] ="*"
+  response.headers["Access-Control-Allow-Methods"] ="POST"
   Game.delete_all
   Game.create(click_count: 0)
   status 200
